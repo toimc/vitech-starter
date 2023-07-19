@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    restart: always
+    image: 'nginx'
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '4080:80'
+    volumes:
+      - /home/website/pk-front-vue3:/usr/share/nginx/html
+
+  nginx1:
+    container_name: nginx1
+    restart: always
+    image: 'nginx'
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '4082:80'
+    volumes:
+      - /etc/nginx/conf.d:/etc/nginx/conf.d/
+      - /etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /home/website/:/home/website/
