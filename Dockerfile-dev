@@ -1,0 +1,7 @@
+# build stage
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+COPY pnpm*.yaml ./
+
+RUN npm install -g pnpm --registry=https://registry.npmmirror.com && npm config set registry https://registry.npmmirror.com && pnpm install
