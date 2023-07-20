@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# echo 'hello-world'
+# 添加测试，eslint，编译，打包，部署
+sh $(dirname -- "$0")/deploy.sh
