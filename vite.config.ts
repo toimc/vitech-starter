@@ -75,7 +75,18 @@ export default defineConfig({
           }
         ]
       },
-      registerType: 'autoUpdate'
+      registerType: 'autoUpdate',
+      workbox: {
+        navigateFallback: '/',
+        // 如果大家有很大的资源文件，wasm bundle.js
+        globPatterns: ['**/*.*']
+      },
+      devOptions: {
+        enabled: true,
+        suppressWarnings: true,
+        navigateFallbackAllowlist: [/^\/$/],
+        type: 'module'
+      }
     }),
     viteMockServe({
       mockPath: 'mock',

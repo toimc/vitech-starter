@@ -9,6 +9,8 @@ onMounted(() => {
   registerSW({
     immediate: true,
     onRegisteredSW(_url, registration) {
+      console.log('🚀 ~ onRegisteredSW ~ registration:', registration)
+      console.log('🚀 ~ onRegisteredSW ~ _url:', _url)
       setInterval(() => {
         registration && registration.update()
       }, 3600000)
