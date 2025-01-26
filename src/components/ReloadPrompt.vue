@@ -1,21 +1,36 @@
 <script setup lang="ts">
-import { useRegisterSW } from 'virtual:pwa-register/vue'
+import { ref, onMounted } from 'vue';
 
-const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
+const offlineReady = ref(false);
+const needRefresh = ref(false);
+let updateServiceWorker: (() => void) | null = null;
 
-const close = async () => {
-  offlineReady.value = false
-  needRefresh.value = false
+const close = () => {
+  offlineReady.value = false;
+  needRefresh.value = false;
+};
+
+if (import.meta.env.VITE_PWA_ENABLE === 'true') {
+  onMounted(async () => {
+    const file = 'virtual:pwa-register';
+    const { useRegisterSW } = await import(/* @vite-ignore */ file);
+    const { offlineReady: ready, needRefresh: refresh, updateServiceWorker: update } = useRegisterSW();
+
+    // 绑定响应式状态
+    offlineReady.value = ready.value;
+    needRefresh.value = refresh.value;
+    updateServiceWorker = update;
+  });
 }
 </script>
 
 <template>
   <div v-if="offlineReady || needRefresh" class="pwa-toast" role="alert">
     <div class="message">
-      <span v-if="offlineReady"> App ready to work offline </span>
-      <span v-else> New content available, click on reload button to update. </span>
+      <span v-if="offlineReady">App ready to work offline</span>
+      <span v-else>New content available, click on reload button to update.</span>
     </div>
-    <button v-if="needRefresh" @click="updateServiceWorker()">Reload</button>
+    <button v-if="needRefresh" @click="updateServiceWorker && updateServiceWorker()">Reload</button>
     <button @click="close">Close</button>
   </div>
 </template>
