@@ -10,10 +10,10 @@ export default [
       return {
         code: 0,
         data: {
-          name: 'vben'
-        }
+          name: 'vben',
+        },
       }
-    }
+    },
   },
   {
     url: '/api/post',
@@ -22,9 +22,9 @@ export default [
     response: {
       code: 0,
       data: {
-        name: 'vben'
-      }
-    }
+        name: 'vben',
+      },
+    },
   },
   {
     url: '/api/image',
@@ -44,6 +44,6 @@ export default [
           res.end(data) // 将图片文件的二进制数据发送给客户端
         }
       })
-    }
-  }
+    },
+  },
 ] as MockMethod[]

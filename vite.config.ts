@@ -3,34 +3,24 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
-// import VueMacros from 'unplugin-vue-macros'
-
-import { VueRouterAutoImports } from 'unplugin-vue-router'
+import vueDevTools from 'vite-plugin-vue-devtools'
+import UnoCSS from 'unocss/vite'
 
 import VueRouter from 'unplugin-vue-router/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Layouts from 'vite-plugin-vue-layouts'
-import UnoCSS from 'unocss/vite'
-
 import { VitePWA } from 'vite-plugin-pwa'
-
 import { viteMockServe } from 'vite-plugin-mock'
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     VueRouter(),
     vue(),
     vueJsx(),
-    // Vue3.3以后，不需要这些新的特性了
-    // VueMacros.vite({
-    //   plugins: {
-    //     vue: vue(),
-    //     vueJsx: vueJsx() // 如果需要
-    //   }
-    // }),
+    vueDevTools(),
     UnoCSS(),
     AutoImport({
       include: [
@@ -90,7 +80,7 @@ export default defineConfig({
     }),
     viteMockServe({
       mockPath: 'mock',
-      enable: false
+      enable: true
     })
   ],
   resolve: {
